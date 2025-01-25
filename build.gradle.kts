@@ -1,3 +1,4 @@
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
@@ -26,4 +27,16 @@ dependencies {
     implementation(libs.ktor.server.config.yaml)
     testImplementation(libs.ktor.server.test.host)
     testImplementation(libs.kotlin.test.junit)
+    testImplementation(libs.assertj.core)
+
+}
+
+tasks.test {
+    testLogging {
+        exceptionFormat = TestExceptionFormat.FULL
+    }
+
+    useJUnitPlatform {
+        includeEngines = setOf("junit-jupiter")
+    }
 }
