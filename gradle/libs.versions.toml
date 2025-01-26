@@ -3,7 +3,7 @@
 kotlin-version = "2.1.0"
 ktor-version = "3.0.3"
 logback-version = "1.4.14"
-assertj-version = "3.19.0"
+assertj-version = "3.27.0"
 
 [libraries]
 ktor-server-core = { module = "io.ktor:ktor-server-core-jvm", version.ref = "ktor-version" }
