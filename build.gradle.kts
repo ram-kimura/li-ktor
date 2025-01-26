@@ -27,7 +27,7 @@ dependencies {
     implementation(libs.ktor.server.config.yaml)
     implementation(libs.ktor.server.status.pages)
     implementation(libs.kotlin.result)
-    testImplementation(libs.ktor.server.test.host)
+    runtimeOnly(libs.ktor.serialization)
     testImplementation(libs.kotlin.test.junit)
     testImplementation(libs.assertj.core)
 }
