@@ -8,6 +8,7 @@ import io.ktor.http.*
 import io.ktor.serialization.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
+import io.ktor.server.plugins.calllogging.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.request.*
@@ -26,6 +27,8 @@ fun Application.configureRouting() {
     install(ContentNegotiation) {
         json(jsonSerializer)
     }
+
+    install(CallLogging)
 
     val env = environment.config.propertyOrNull("ktor.environment")?.getString() ?: "development"
     val logger = LoggerFactory.getLogger(this::class.java)

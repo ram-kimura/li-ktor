@@ -29,6 +29,7 @@ dependencies {
     implementation(libs.ktor.server.status.pages)
     implementation(libs.ktor.server.content.negotiation)
     implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.server.call.logging)
     implementation(libs.ktor.serialization)
     implementation(libs.kotlin.result)
     testImplementation(libs.kotlin.test.junit)
