@@ -9,17 +9,17 @@ object TaskRepository {
         Task(
             UUID.randomUUID(),
             "Low priority task",
-            Priority.Low
+            Priority.LOW
         ),
         Task(
             UUID.randomUUID(),
             "Medium priority task",
-            Priority.Medium
+            Priority.MEDIUM
         ),
         Task(
             UUID.randomUUID(),
             "High priority task",
-            Priority.High
+            Priority.HIGH
         )
     )
 
