@@ -13,6 +13,7 @@ import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import org.slf4j.LoggerFactory
 import java.util.*
 
 fun Application.configureRouting() {
@@ -25,6 +26,10 @@ fun Application.configureRouting() {
     install(ContentNegotiation) {
         json(jsonSerializer)
     }
+
+    val env = environment.config.propertyOrNull("ktor.environment")?.getString() ?: "development"
+    val logger = LoggerFactory.getLogger(this::class.java)
+    logger.info("Environment: $env")
 
     routing {
         get("/") {

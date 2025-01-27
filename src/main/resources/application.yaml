@@ -7,3 +7,4 @@ ktor:
         watch: # auto-reloading: ./gradlew -t installDist
           - main
     development: true
+    environment: $?KTOR_ENV # optional
