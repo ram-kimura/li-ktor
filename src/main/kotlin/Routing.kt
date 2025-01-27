@@ -13,6 +13,7 @@ import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import java.util.*
 
 fun Application.configureRouting() {
     install(StatusPages) {
@@ -76,6 +77,27 @@ fun Application.configureRouting() {
                     call.respond(HttpStatusCode.BadRequest)
                 } catch (e: JsonConvertException) {
                     call.respond(HttpStatusCode.BadRequest)
+                }
+            }
+
+            delete("/{id}") {
+                val idAsString = call.parameters["id"]
+                if (idAsString == null) {
+                    call.respond(HttpStatusCode.BadRequest)
+                    return@delete
+                }
+
+                try {
+                    val id = UUID.fromString(idAsString)
+
+                    if (TaskRepository.remove(id)) {
+                        call.respond(HttpStatusCode.NoContent)
+                    } else {
+                        call.respond(HttpStatusCode.NotFound)
+                    }
+                } catch (e: IllegalArgumentException) {
+                    call.respond(HttpStatusCode.BadRequest)
+                    return@delete
                 }
             }
         }

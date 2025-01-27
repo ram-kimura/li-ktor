@@ -30,4 +30,6 @@ object TaskRepository {
     fun addTask(task: Task) {
         tasks.add(task)
     }
+
+    fun remove(id: UUID) = tasks.removeIf { it.id == id }
 }
