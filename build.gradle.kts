@@ -28,9 +28,11 @@ dependencies {
     implementation(libs.logback.classic)
     implementation(libs.ktor.server.status.pages)
     implementation(libs.ktor.server.content.negotiation)
+    implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.serialization)
     implementation(libs.kotlin.result)
     testImplementation(libs.kotlin.test.junit)
+    testImplementation(libs.ktor.server.test.host)
     testImplementation(libs.assertj.core)
 }
 
