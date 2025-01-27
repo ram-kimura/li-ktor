@@ -1,5 +1,8 @@
 package com.example
 
+import com.example.domain.Priority
+import com.example.domain.Task
+import com.example.util.jsonSerializer
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
@@ -7,7 +10,7 @@ import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import kotlinx.serialization.json.Json
+import java.util.*
 
 fun Application.configureRouting() {
     install(StatusPages) {
@@ -17,13 +20,7 @@ fun Application.configureRouting() {
     }
 
     install(ContentNegotiation) {
-        json(
-            Json {
-                prettyPrint = true
-                encodeDefaults = true
-                ignoreUnknownKeys = true
-            }
-        )
+        json(jsonSerializer)
     }
 
     routing {
@@ -39,6 +36,14 @@ fun Application.configureRouting() {
 
         get("/error-test") {
             throw IllegalArgumentException("Too Busy")
+        }
+
+        get("/tasks") {
+            call.respond(
+                listOf(
+                    Task(UUID.randomUUID(), "Clean the house", Priority.Medium),
+                )
+            )
         }
     }
 }
