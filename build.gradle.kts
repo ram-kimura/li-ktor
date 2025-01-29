@@ -32,6 +32,7 @@ dependencies {
     implementation(libs.ktor.server.call.logging)
     implementation(libs.ktor.serialization)
     implementation(libs.kotlin.result)
+    implementation(libs.annotations)
     testImplementation(libs.kotlin.test.junit)
     testImplementation(libs.ktor.server.test.host)
     testImplementation(libs.assertj.core)

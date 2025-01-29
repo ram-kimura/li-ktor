@@ -5,6 +5,7 @@ ktor-version = "3.0.3"
 logback-version = "1.4.14"
 assertj-version = "3.27.0"
 kotlin-result-version = "2.0.1"
+annotations-version = "2.1.10"
 
 [libraries]
 ktor-server-core = { module = "io.ktor:ktor-server-core" }
@@ -21,6 +22,7 @@ kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version
 logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback-version" }
 assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj-version" }
 kotlin-result = { module = "com.michael-bull.kotlin-result:kotlin-result", version.ref = "kotlin-result-version" }
+annotations = { module = "org.jetbrains:annotations", version.ref = "annotations-version" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin-version" }
