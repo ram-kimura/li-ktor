@@ -2,6 +2,7 @@ package com.example.util
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
+import org.jdbi.v3.core.Jdbi
 
 val config by lazy {
     HikariConfig().apply {
@@ -16,4 +17,8 @@ val config by lazy {
 
 val dataSource by lazy {
     HikariDataSource(config)
+}
+
+val jdbi by lazy {
+    Jdbi.create(dataSource)
 }
