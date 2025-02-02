@@ -9,6 +9,8 @@ val config by lazy {
         username = "postgres"
         password = "example"
         maximumPoolSize = 3
+        minimumIdle = 1
+        idleTimeout = 10000
     }
 }
 
