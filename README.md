@@ -45,6 +45,29 @@ jdbc:postgresql://localhost:5432/li?currentSchema=li
 ## todo: make migrate file
 ```sql
 create database li;
-create schema li;
-set schema='li';
+create schema IF NOT EXISTS li;
+set schema 'li';
+
+create table IF NOT EXISTS tenant
+(
+    tenant_name_id    varchar(20)              not null
+            primary key,
+    organization_name varchar(100)             not null,
+    created_at        timestamp with time zone not null
+);
+
+create table IF NOT EXISTS task
+(
+    tenant_name_id varchar(20)            not null,
+        foreign key (tenant_name_id) references tenant (tenant_name_id),
+    task_uuid      uuid              not null
+            primary key,
+    title    varchar(100)             not null,
+    priority  varchar(20)             not null,
+    completed_at timestamp with time zone,
+    created_at   timestamp with time zone not null,
+    updated_at   timestamp with time zone 
+);
+
+create index IF NOT EXISTS task_uuid_index on task (task_uuid);
 ```
