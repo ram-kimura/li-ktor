@@ -6,7 +6,7 @@ services:
 
   # psql -h localhost -p 5432 -U postgres
   postgres-li:
-    image: postgres:17
+    image: postgres:16
     restart: always
     # set shared memory limit when using docker-compose
     shm_size: 128mb
