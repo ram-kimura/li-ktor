@@ -7,6 +7,7 @@ assertj-version = "3.27.0"
 kotlin-result-version = "2.0.1"
 annotations-version = "2.1.10"
 jdbi-version = "3.37.0"
+hikariCp-version = "6.2.1"
 
 [libraries]
 ktor-server-core = { module = "io.ktor:ktor-server-core" }
@@ -28,6 +29,7 @@ jdbi-bom = { module = "org.jdbi:jdbi3-bom", version.ref = "jdbi-version" }
 jdbi-core = { module = "org.jdbi:jdbi3-core" }
 jdbi-postgres = { module = "org.jdbi:jdbi3-postgres" }
 jdbi-kotlin = { module = "org.jdbi:jdbi3-kotlin" }
+hikari-cp = { module = "com.zaxxer:HikariCP", version.ref = "hikariCp-version" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin-version" }

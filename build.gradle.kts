@@ -37,6 +37,7 @@ dependencies {
     implementation(libs.jdbi.core)
     implementation(libs.jdbi.postgres)
     implementation(libs.jdbi.kotlin)
+    implementation(libs.hikari.cp)
     testImplementation(libs.kotlin.test.junit)
     testImplementation(libs.ktor.server.test.host)
     testImplementation(libs.assertj.core)
