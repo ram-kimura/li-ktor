@@ -6,6 +6,7 @@ logback-version = "1.4.14"
 assertj-version = "3.27.0"
 kotlin-result-version = "2.0.1"
 annotations-version = "2.1.10"
+postgres-version = "42.7.5"
 jdbi-version = "3.37.0"
 hikariCp-version = "6.2.1"
 
@@ -25,6 +26,7 @@ logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "lo
 assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj-version" }
 kotlin-result = { module = "com.michael-bull.kotlin-result:kotlin-result", version.ref = "kotlin-result-version" }
 annotations = { module = "org.jetbrains:annotations", version.ref = "annotations-version" }
+postgres = { module = "org.postgresql:postgresql", version.ref = "postgres-version" }
 jdbi-bom = { module = "org.jdbi:jdbi3-bom", version.ref = "jdbi-version" }
 jdbi-core = { module = "org.jdbi:jdbi3-core" }
 jdbi-postgres = { module = "org.jdbi:jdbi3-postgres" }

@@ -33,6 +33,7 @@ dependencies {
     implementation(libs.ktor.serialization)
     implementation(libs.kotlin.result)
     implementation(libs.annotations)
+    implementation(libs.postgres)
     implementation(platform(libs.jdbi.bom))
     implementation(libs.jdbi.core)
     implementation(libs.jdbi.postgres)
