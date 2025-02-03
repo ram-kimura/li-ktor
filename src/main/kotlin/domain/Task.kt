@@ -7,7 +7,7 @@ import java.util.*
 @Serializable
 data class Task(
     @Contextual
-    val id: UUID,
+    val taskUUID: UUID,
     val title: String,
     val priority: Priority,
 )
