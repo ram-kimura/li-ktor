@@ -21,7 +21,18 @@ object TaskRepository {
     }
 
     fun getTasksBy(priority: Priority): List<Task> {
-        return emptyList()
+        val query = """
+           select task_uuid, title, priority
+           from task
+           where priority = :priority
+        """.trimIndent()
+
+        return jdbi.open().use { handle ->
+            handle.createQuery(query)
+                .bind("priority", priority)
+                .mapTo(Task::class.java)
+                .list()
+        }
     }
 
     fun addTask(task: Task) {

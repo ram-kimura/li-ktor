@@ -41,6 +41,24 @@ class ApplicationTest {
     }
 
     @Test
+    fun getByPriority() = testApplication {
+        application {
+            module()
+        }
+        val client = createClient {
+            this.install(ContentNegotiation) {
+                json(jsonSerializer)
+            }
+        }
+
+        val targetPriority = Priority.LOW
+
+        val response = client.get("/tasks?priority=$targetPriority")
+        assertThat(response.status).isEqualTo(HttpStatusCode.OK)
+        assertThat(response.bodyAsText()).isEqualTo("[]")
+    }
+
+    @Test
     fun registerTask() = testApplication {
         application {
             module()
