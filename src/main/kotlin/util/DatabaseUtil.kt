@@ -9,8 +9,8 @@ val config by lazy {
         jdbcUrl = "jdbc:postgresql://localhost:5432/li?currentSchema=li"
         username = "postgres"
         password = "example"
-        maximumPoolSize = 3
-        minimumIdle = 1
+        maximumPoolSize = 10
+        minimumIdle = 5
         idleTimeout = 10000
     }
 }
