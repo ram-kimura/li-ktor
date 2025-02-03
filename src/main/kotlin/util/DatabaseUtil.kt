@@ -20,5 +20,7 @@ val dataSource by lazy {
 }
 
 val jdbi by lazy {
-    Jdbi.create(dataSource)
+    Jdbi.create(dataSource).apply {
+        installPlugins()
+    }
 }
