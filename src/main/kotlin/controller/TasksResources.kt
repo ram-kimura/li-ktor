@@ -24,7 +24,7 @@ class TaskById()
 
 fun Route.tasksResources() {
     get<Tasks> {
-        val tasks = TaskRepository.getAllTasks()
+        val tasks = TaskRepository.getAll()
         call.respond(tasks)
     }
 

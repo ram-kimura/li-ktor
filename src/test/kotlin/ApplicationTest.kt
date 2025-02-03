@@ -25,6 +25,22 @@ class ApplicationTest {
     }
 
     @Test
+    fun getAll() = testApplication {
+        application {
+            module()
+        }
+        val client = createClient {
+            this.install(ContentNegotiation) {
+                json(jsonSerializer)
+            }
+        }
+
+        val response = client.get("/tasks")
+        assertThat(response.status).isEqualTo(HttpStatusCode.OK)
+        assertThat(response.bodyAsText()).isEqualTo("[]")
+    }
+
+    @Test
     fun registerTask() = testApplication {
         application {
             module()
