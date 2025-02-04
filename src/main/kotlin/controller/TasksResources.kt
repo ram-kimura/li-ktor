@@ -52,7 +52,7 @@ fun Route.tasksResources() {
     post<Tasks> {
         try {
             val task = call.receive<Task>()
-            TaskRepository.addTask(task)
+            TaskRepository.register(task)
             call.respond(HttpStatusCode.Created)
         } catch (e: IllegalArgumentException) {
             call.respond(HttpStatusCode.BadRequest)

@@ -3,6 +3,7 @@ package com.example.infrastructure
 import com.example.domain.Priority
 import com.example.domain.Task
 import com.example.util.jdbi
+import org.jdbi.v3.core.kotlin.bindKotlin
 import java.util.*
 
 object TaskRepository {
@@ -50,8 +51,21 @@ object TaskRepository {
         }
     }
 
-    fun addTask(task: Task) {
-//        tasks.add(task)
+    fun register(task: Task) {
+        val query = """
+            insert into task (<columns>)
+            values (:tenantNameID, :taskUUID, :title, :priority, now(), null)
+        """.trimIndent()
+
+        jdbi.open().use { handle ->
+            handle.createUpdate(query)
+                .defineList(
+                    "columns",
+                    listOf("tenant_name_id", "task_uuid", "title", "priority", "created_at", "updated_at")
+                )
+                .bindKotlin(task)
+                .execute()
+        }
     }
 
     fun remove(id: UUID): Boolean {
