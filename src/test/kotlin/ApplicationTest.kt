@@ -70,6 +70,7 @@ class ApplicationTest {
         }
 
         val task = Task(
+            "tenant",
             UUID.randomUUID(),
             "New task",
             Priority.LOW

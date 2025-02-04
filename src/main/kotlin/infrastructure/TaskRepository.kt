@@ -9,7 +9,7 @@ object TaskRepository {
 
     fun getAll(): List<Task> {
         val query = """
-            SELECT task_uuid, title, priority
+            SELECT tenant_name_id, task_uuid, title, priority
             FROM task
         """.trimIndent()
 
@@ -22,7 +22,7 @@ object TaskRepository {
 
     fun getTasksBy(priority: Priority): List<Task> {
         val query = """
-           select task_uuid, title, priority
+           select tenant_name_id, task_uuid, title, priority
            from task
            where priority = :priority
         """.trimIndent()

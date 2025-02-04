@@ -6,6 +6,7 @@ import java.util.*
 
 @Serializable
 data class Task(
+    val tenantNameID: String,
     @Contextual
     val taskUUID: UUID,
     val title: String,
