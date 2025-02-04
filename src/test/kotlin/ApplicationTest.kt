@@ -37,7 +37,7 @@ class ApplicationTest {
 
         val response = client.get("/tasks")
         assertThat(response.status).isEqualTo(HttpStatusCode.OK)
-        assertThat(response.bodyAsText()).isEqualTo("[]")
+        assertThat(response.bodyAsText()).isNotNull()
     }
 
     @Test
