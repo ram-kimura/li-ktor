@@ -20,6 +20,21 @@ object TaskRepository {
         }
     }
 
+    fun getByUUID(taskUUID: UUID): Task? {
+        val query = """
+            select tenant_name_id, task_uuid, title, priority 
+            from task
+            where task_uuid = :taskUUID
+        """.trimIndent()
+
+        return jdbi.open().use { handle ->
+            handle.createQuery(query)
+                .bind("taskUUID", taskUUID)
+                .mapTo(Task::class.java)
+                .singleOrNull()
+        }
+    }
+
     fun getTasksBy(priority: Priority): List<Task> {
         val query = """
            select tenant_name_id, task_uuid, title, priority
