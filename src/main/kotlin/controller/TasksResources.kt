@@ -29,7 +29,7 @@ fun Route.tasksResources() {
     }
 
     get<TasksByPriority> {
-        val priorityAsString = call.parameters["priority"]
+        val priorityAsString = call.pathParameters["priority"]
         if (priorityAsString == null) {
             call.respond(HttpStatusCode.BadRequest)
             return@get
@@ -39,10 +39,6 @@ fun Route.tasksResources() {
             val priority = Priority.valueOf(priorityAsString.uppercase())
             val tasks = TaskRepository.getTasksBy(priority)
 
-            if (tasks.isEmpty()) {
-                call.respond(HttpStatusCode.NotFound)
-                return@get
-            }
             call.respond(tasks)
         } catch (e: IllegalArgumentException) {
             call.respond(HttpStatusCode.BadRequest)

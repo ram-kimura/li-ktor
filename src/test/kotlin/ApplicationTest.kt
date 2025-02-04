@@ -51,9 +51,9 @@ class ApplicationTest {
             }
         }
 
-        val targetPriority = Priority.LOW
+        val targetPriority = Priority.HIGH
 
-        val response = client.get("/tasks?priority=$targetPriority")
+        val response = client.get("/tasks/priority/$targetPriority")
         assertThat(response.status).isEqualTo(HttpStatusCode.OK)
         assertThat(response.bodyAsText()).isEqualTo("[]")
     }
