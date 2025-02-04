@@ -21,7 +21,7 @@ class ApplicationTest {
 
         val response = client.get("/")
         assertThat(response.status).isEqualTo(HttpStatusCode.OK)
-        assertThat(response.bodyAsText()).isEqualTo("Hello World!")
+        assertThat(response.bodyAsText()).isEqualTo("Hello Ktor")
     }
 
     @Test
