@@ -3,6 +3,7 @@ package com.example.util
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.jdbi.v3.core.Jdbi
+import org.jdbi.v3.core.statement.Slf4JSqlLogger
 
 val config by lazy {
     HikariConfig().apply {
@@ -22,5 +23,6 @@ val dataSource by lazy {
 val jdbi by lazy {
     Jdbi.create(dataSource).apply {
         installPlugins()
+        setSqlLogger(Slf4JSqlLogger())
     }
 }
