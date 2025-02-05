@@ -22,7 +22,7 @@ class TasksByPriority()
 @Resource("/tasks/{id}")
 class TaskById()
 
-fun Route.tasksResources() {
+fun Route.taskResources() {
     get<Tasks> {
         val tasks = TaskRepository.getAll()
         call.respond(tasks)

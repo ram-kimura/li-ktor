@@ -1,6 +1,6 @@
 package com.example
 
-import com.example.controller.tasksResources
+import com.example.controller.taskResources
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
@@ -22,6 +22,6 @@ fun Application.configureRouting() {
             throw IllegalArgumentException("Too Busy")
         }
 
-        tasksResources()
+        taskResources()
     }
 }
