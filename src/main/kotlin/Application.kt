@@ -1,6 +1,7 @@
 package com.example
 
 import com.example.util.jsonSerializer
+import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.calllogging.*
@@ -33,7 +34,7 @@ fun Application.installPlugins() {
 
     install(StatusPages) {
         exception<IllegalArgumentException> { call, cause ->
-            call.respondText("App in illegal state as ${cause.message}")
+            call.respondText("App in illegal state as ${cause.message}", status = HttpStatusCode.ServiceUnavailable)
         }
     }
 

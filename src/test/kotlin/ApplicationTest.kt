@@ -22,6 +22,14 @@ class ApplicationTest {
     }
 
     @Test
+    fun testBusy() = withCustomApplicationTest {
+        val response = client.get("/busy-test") // todo: refactor to non string path
+
+        assertThat(response.status).isEqualTo(HttpStatusCode.ServiceUnavailable)
+        assertThat(response.bodyAsText()).isEqualTo("App in illegal state as Too Busy")
+    }
+
+    @Test
     fun getAll() = withCustomApplicationTest {
         val client = createClient {
             this.install(ContentNegotiation) {
