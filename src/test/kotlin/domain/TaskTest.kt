@@ -3,10 +3,12 @@ package domain
 import com.example.domain.Priority
 import com.example.domain.Task
 
-class TaskTest
-
-fun createTask() = Task.of(
-    tenantNameID = "tenant",
-    title = "test title",
-    priority = Priority.MEDIUM
+fun createTaskFixture(
+    tenantNameId: String = "tenant",
+    title: String = "test title",
+    priority: Priority = Priority.MEDIUM
+) = Task.of(
+    tenantNameID = tenantNameId,
+    title = title,
+    priority = priority
 )
