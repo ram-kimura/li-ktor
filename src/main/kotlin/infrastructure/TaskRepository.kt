@@ -14,7 +14,7 @@ object TaskRepository {
             FROM task
         """.trimIndent()
 
-        return jdbi.withHandle<List<Task>, Exception> { handle ->
+        return jdbi.withHandle<_, Exception> { handle ->
             handle.createQuery(query)
                 .mapTo(Task::class.java)
                 .list()
@@ -68,6 +68,55 @@ object TaskRepository {
         }
     }
 
+    @Deprecated("Use bulkRegister instead")
+    fun deprecatedBulkRegister(tasks: List<Task>): IntArray {
+        val query = """
+            insert into task values (:tenant_name_id, :task_uuid, :title, :priority, null, now(), null)
+        """.trimIndent()
+
+        return jdbi.inTransaction<IntArray, Exception> { handle ->
+            val batch = handle.prepareBatch(query)
+            tasks.forEach { task ->
+                batch.bind("tenant_name_id", task.tenantNameID)
+                    .bind("task_uuid", task.taskUUID)
+                    .bind("title", task.title)
+                    .bind("priority", task.priority)
+                    .add()
+            }
+            return@inTransaction batch.execute()
+        }
+    }
+
+    fun bulkRegister(tasks: List<Task>) {
+        val query = """
+           insert into task values <values>
+        """.trimIndent()
+
+        val taskRows = listOf(
+            TaskRow("tenant", UUID.randomUUID(), "title1", Priority.LOW),
+            TaskRow("tenant", UUID.randomUUID(), "title2", Priority.HIGH),
+            TaskRow("tenant", UUID.randomUUID(), "title3", Priority.MEDIUM)
+        )
+
+        jdbi.useTransaction<Exception> { handle ->
+            handle.createUpdate(query)
+                .bindBeanList(
+                    "values",
+                    taskRows,
+                    listOf(
+                        "tenantNameID",
+                        "taskUUID",
+                        "title",
+                        "priority",
+                        "completedAt",
+                        "createdAt",
+                        "updatedAt"
+                    )
+                )
+                .execute()
+        }
+    }
+
     fun remove(id: UUID) {
         val query = """
             delete from task
@@ -80,4 +129,14 @@ object TaskRepository {
                 .execute()
         }
     }
+
+    data class TaskRow(
+        val tenantNameID: String,
+        val taskUUID: UUID,
+        val title: String,
+        val priority: Priority,
+        val completedAt: Date? = null,
+        val createdAt: Date = Date(),
+        val updatedAt: Date? = null
+    )
 }
