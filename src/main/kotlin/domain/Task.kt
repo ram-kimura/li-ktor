@@ -11,7 +11,12 @@ data class Task(
     val taskUUID: UUID,
     val title: String,
     val priority: Priority,
-)
+) {
+    companion object {
+        fun of(tenantNameID: String, title: String, priority: Priority) =
+            Task(tenantNameID, UUID.randomUUID(), title, priority)
+    }
+}
 
 enum class Priority {
     LOW,
