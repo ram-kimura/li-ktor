@@ -68,8 +68,16 @@ object TaskRepository {
         }
     }
 
-    fun remove(id: UUID): Boolean {
-        return false
-//        tasks.removeIf { it.id == id }
+    fun remove(id: UUID) {
+        val query = """
+            delete from task
+            where task_uuid = :id
+        """.trimIndent()
+
+        jdbi.useTransaction<Exception> { handle ->
+            handle.createUpdate(query)
+                .bind("id", id)
+                .execute()
+        }
     }
 }

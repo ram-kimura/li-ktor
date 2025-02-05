@@ -1,6 +1,7 @@
 import com.example.domain.Priority
 import com.example.domain.Task
 import com.example.module
+import com.example.util.jdbi
 import com.example.util.jsonSerializer
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
@@ -81,5 +82,30 @@ class ApplicationTest {
         }
 
         assertThat(response.status).isEqualTo(HttpStatusCode.Created)
+    }
+
+    @Test
+    fun deleteTask() = testApplication {
+        application {
+            module()
+        }
+        val client = createClient {
+            this.install(ContentNegotiation) {
+                json(jsonSerializer)
+            }
+        }
+
+        val taskId = jdbi.open().use { handle ->
+            handle.createQuery(
+                """
+                select task_uuid
+                from task
+                limit 1
+            """
+            ).mapTo(UUID::class.java).singleOrNull()
+        }
+
+        val response = client.delete("/tasks/$taskId")
+        assertThat(response.status).isEqualTo(HttpStatusCode.OK)
     }
 }

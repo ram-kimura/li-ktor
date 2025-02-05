@@ -58,7 +58,7 @@ fun Route.taskResources() {
     }
 
     delete<TaskById> {
-        val idAsString = call.parameters["id"]
+        val idAsString = call.pathParameters["id"]
         if (idAsString == null) {
             call.respond(HttpStatusCode.BadRequest)
             return@delete
@@ -66,15 +66,12 @@ fun Route.taskResources() {
 
         try {
             val id = UUID.fromString(idAsString)
-
-            if (TaskRepository.remove(id)) {
-                call.respond(HttpStatusCode.NoContent)
-            } else {
-                call.respond(HttpStatusCode.NotFound)
-            }
+            TaskRepository.remove(id)
         } catch (e: IllegalArgumentException) {
             call.respond(HttpStatusCode.BadRequest)
             return@delete
         }
+
+        call.respond(HttpStatusCode.OK)
     }
 }
