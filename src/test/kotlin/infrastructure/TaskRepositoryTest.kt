@@ -17,9 +17,7 @@ class TaskRepositoryTest {
             Task("tenant", UUID.randomUUID(), "title3", Priority.MEDIUM)
         )
 
-        val counts = TaskRepository.deprecatedBulkRegister(tasks)
-
-        assertThat(counts.size).isEqualTo(3)
+        assertThat(TaskRepository.deprecatedBulkRegister(tasks)).isEqualTo(tasks.size)
     }
 
     @Test
@@ -30,6 +28,6 @@ class TaskRepositoryTest {
             Task("tenant", UUID.randomUUID(), "title3", Priority.MEDIUM)
         )
 
-        TaskRepository.bulkRegister(tasks)
+        assertThat(TaskRepository.bulkRegister(tasks)).isEqualTo(tasks.size)
     }
 }

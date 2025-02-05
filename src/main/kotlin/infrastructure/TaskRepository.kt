@@ -69,12 +69,12 @@ object TaskRepository {
     }
 
     @Deprecated("Use bulkRegister instead")
-    fun deprecatedBulkRegister(tasks: List<Task>): IntArray {
+    fun deprecatedBulkRegister(tasks: List<Task>): Int {
         val query = """
             insert into task values (:tenant_name_id, :task_uuid, :title, :priority, null, now(), null)
         """.trimIndent()
 
-        return jdbi.inTransaction<IntArray, Exception> { handle ->
+        return jdbi.inTransaction<_, Exception> { handle ->
             val batch = handle.prepareBatch(query)
             tasks.forEach { task ->
                 batch.bind("tenant_name_id", task.tenantNameID)
@@ -83,22 +83,19 @@ object TaskRepository {
                     .bind("priority", task.priority)
                     .add()
             }
-            return@inTransaction batch.execute()
+            val counts = batch.execute()
+            counts.size
         }
     }
 
-    fun bulkRegister(tasks: List<Task>) {
+    fun bulkRegister(tasks: List<Task>): Int {
         val query = """
            insert into task values <values>
         """.trimIndent()
 
-        val taskRows = listOf(
-            TaskRow("tenant", UUID.randomUUID(), "title1", Priority.LOW),
-            TaskRow("tenant", UUID.randomUUID(), "title2", Priority.HIGH),
-            TaskRow("tenant", UUID.randomUUID(), "title3", Priority.MEDIUM)
-        )
+        val taskRows = tasks.map { TaskRow.from(it) }
 
-        jdbi.useTransaction<Exception> { handle ->
+        return jdbi.inTransaction<_, Exception> { handle ->
             handle.createUpdate(query)
                 .bindBeanList(
                     "values",
@@ -138,5 +135,14 @@ object TaskRepository {
         val completedAt: Date? = null,
         val createdAt: Date = Date(),
         val updatedAt: Date? = null
-    )
+    ) {
+        companion object {
+            fun from(task: Task) = TaskRow(
+                tenantNameID = task.tenantNameID,
+                taskUUID = task.taskUUID,
+                title = task.title,
+                priority = task.priority
+            )
+        }
+    }
 }
