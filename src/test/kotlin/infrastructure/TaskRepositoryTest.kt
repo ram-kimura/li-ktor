@@ -6,7 +6,6 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class TaskRepositoryTest {
-
     @Test
     fun deprecatedBulkRegister() {
         val tasks = List(3) {
