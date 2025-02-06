@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 import testing.withCustomApplicationTest
 import java.util.*
 
-class TaskResourceTest {
+class TaskControllerTest {
     @Test
     fun getAll() = withCustomApplicationTest {
         val response = client.get("/tasks")

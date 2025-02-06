@@ -1,5 +1,6 @@
 package com.example.controller
 
+import com.example.application_service.TaskService
 import com.example.domain.Priority
 import com.example.domain.Task
 import com.example.infrastructure.TaskRepository
@@ -24,7 +25,8 @@ class TaskById()
 
 fun Route.taskResources() {
     get<Tasks> {
-        val tasks = TaskRepository.getAll()
+        val tasks = TaskService.getAll()
+
         call.respond(tasks)
     }
 
